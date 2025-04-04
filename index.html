@@ -4,11 +4,167 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="src/output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <title>nav</title>
 </head>
-<body class="bg-gray-700">
-    <h1 class="bg-red-800">hello!!!!</h1>
+<body class="bg-gray-900 text-white min-h-screen p-4 flex flex-col items-center">
+
+<!-- Navbar -->
+    <nav class="w-full max-w-6xl bg-gray-800 p-4 rounded-lg shadow-md flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 mb-8">
+      
+        <!-- Search Bar -->
+        <div class="relative w-full md:w-[45%]">
+          <input id="search-input" type="text" placeholder="Search City..." class="bg-gray-700 text-white pl-10 pr-4 py-2 rounded-full w-full outline-none placeholder:text-gray-400"/>
+          <button id="search-btn" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+      
+        <!-- Location Button -->
+        <button id="location-btn" class="bg-blue-500 px-5 py-2 rounded-full text-white hover:bg-blue-600 transition-all">
+          <i class="fa-solid fa-location-crosshairs mr-2"></i>
+          Use Current Location
+        </button>    
+    </nav>
+      
+
+    <!-- City & Time Block -->
+    <section id="city-time-block" class="w-full max-w-6xl bg-gray-800 p-6 rounded-lg shadow-md mb-8 flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-4">
+        <!-- City Name -->
+        <div>
+          <h2 id="city-name" class="text-2xl md:text-3xl font-bold text-white">
+            <i class="fa-solid fa-city mr-2 text-blue-400"></i>
+            New York
+          </h2>
+        </div>
+      
+        <!-- Time & Date -->
+        <div>
+          <p id="current-time" class="text-lg text-gray-300">
+            <i class="fa-regular fa-clock mr-1 text-yellow-300"></i>
+            12:45 PM
+          </p>
+          <p id="current-date" class="text-sm text-gray-400">
+            <i class="fa-regular fa-calendar-days mr-1 text-green-300"></i>
+            April 4, 2025
+          </p>
+        </div>
+    </section>
+  
+
+    <!-- Weather Highlights Section -->
+    <section id="weather-highlights" class="w-full max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <!-- Temperature Card -->
+        <div id="temp-card" class="bg-gray-800 p-5 rounded-xl shadow-md flex flex-col items-center text-center">
+          <i class="fa-solid fa-temperature-half text-3xl text-red-400 mb-3"></i>
+          <h3 class="text-lg font-semibold text-white">Temperature</h3>
+          <p id="temperature" class="text-2xl text-white font-bold mt-1">28°C</p>
+        </div>
+      
+        <!-- Humidity Card -->
+        <div id="humidity-card" class="bg-gray-800 p-5 rounded-xl shadow-md flex flex-col items-center text-center">
+          <i class="fa-solid fa-droplet text-3xl text-blue-400 mb-3"></i>
+          <h3 class="text-lg font-semibold text-white">Humidity</h3>
+          <p id="humidity" class="text-2xl text-white font-bold mt-1">65%</p>
+        </div>
+      
+        <!-- Wind Speed Card -->
+        <div id="wind-card" class="bg-gray-800 p-5 rounded-xl shadow-md flex flex-col items-center text-center">
+          <i class="fa-solid fa-wind text-3xl text-cyan-300 mb-3"></i>
+          <h3 class="text-lg font-semibold text-white">Wind Speed</h3>
+          <p id="wind-speed" class="text-2xl text-white font-bold mt-1">15 km/h</p>
+        </div>
+      
+        <!-- Pressure Card -->
+        <div id="pressure-card" class="bg-gray-800 p-5 rounded-xl shadow-md flex flex-col items-center text-center">
+          <i class="fa-solid fa-gauge-high text-3xl text-purple-400 mb-3"></i>
+          <h3 class="text-lg font-semibold text-white">Pressure</h3>
+          <p id="pressure" class="text-2xl text-white font-bold mt-1">1012 hPa</p>
+        </div>
+  </section>
+  
+
+  <!-- Weekly Forecast -->
+   <section id="weekly-forecast" class="w-full max-w-6xl bg-gray-800 p-6 rounded-xl shadow-md mb-8">
+        <h2 class="text-xl font-semibold mb-4 text-white">
+          <i class="fa-solid fa-calendar-week mr-2 text-purple-400"></i>
+          7-Day Forecast
+        </h2>
+    
+        <!-- Cards Container -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
+          
+          <!-- Forecast Card Example -->
+          <div class="bg-gray-700 p-4 rounded-lg text-center" id="day-1">
+            <p class="text-sm text-gray-300" id="day-1-name">Mon</p>
+            <i class="fa-solid fa-cloud-sun text-2xl text-yellow-300 my-2" id="day-1-icon"></i>
+            <p class="text-lg text-white font-bold" id="day-1-temp">24°C</p>
+          </div>
+    
+          <!-- Copy same card structure for rest of the days -->
+          <div class="bg-gray-700 p-4 rounded-lg text-center" id="day-2">
+            <p class="text-sm text-gray-300" id="day-2-name">Tue</p>
+            <i class="fa-solid fa-sun text-2xl text-yellow-400 my-2" id="day-2-icon"></i>
+            <p class="text-lg text-white font-bold" id="day-2-temp">26°C</p>
+          </div>
+    
+          <div class="bg-gray-700 p-4 rounded-lg text-center" id="day-3">
+            <p class="text-sm text-gray-300" id="day-3-name">Wed</p>
+            <i class="fa-solid fa-cloud-showers-heavy text-2xl text-blue-300 my-2" id="day-3-icon"></i>
+            <p class="text-lg text-white font-bold" id="day-3-temp">20°C</p>
+          </div>
+  
+          <div class="bg-gray-700 p-4 rounded-lg text-center" id="day-4">
+            <p class="text-sm text-gray-300" id="day-4-name">Thu</p>
+            <i class="fa-solid fa-cloud-moon text-2xl text-indigo-300 my-2" id="day-4-icon"></i>
+            <p class="text-lg text-white font-bold" id="day-4-temp">22°C</p>
+          </div>
+      
+          <div class="bg-gray-700 p-4 rounded-lg text-center" id="day-5">
+            <p class="text-sm text-gray-300" id="day-5-name">Fri</p>
+            <i class="fa-solid fa-sun text-2xl text-yellow-400 my-2" id="day-5-icon"></i>
+            <p class="text-lg text-white font-bold" id="day-5-temp">27°C</p>
+          </div>
+      
+          <div class="bg-gray-700 p-4 rounded-lg text-center" id="day-6">
+            <p class="text-sm text-gray-300" id="day-6-name">Sat</p>
+            <i class="fa-solid fa-cloud text-2xl text-gray-300 my-2" id="day-6-icon"></i>
+            <p class="text-lg text-white font-bold" id="day-6-temp">23°C</p>
+          </div>
+    
+           <div class="bg-gray-700 p-4 rounded-lg text-center" id="day-7">
+             <p class="text-sm text-gray-300" id="day-7-name">Sun</p>
+             <i class="fa-solid fa-cloud-bolt text-2xl text-yellow-300 my-2" id="day-7-icon"></i>
+             <p class="text-lg text-white font-bold" id="day-7-temp">25°C</p>
+           </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="main-footer" class="w-full bg-gray-900 text-gray-400 py-6 mt-10">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+          <!-- Left Side -->
+          <p id="footer-text" class="text-sm text-center md:text-left">
+            Made with 💻 & way too much coffee by <span class="text-white font-semibold">Navneet</span> — Weather so accurate, idk mann, im also doutfull
+          </p>
+       
+          <!-- Social Links -->
+          <div class="flex gap-4 text-lg">
+            <a href="#" id="github-link" class="hover:text-white transition-colors">
+              <i class="fa-brands fa-github"></i>
+            </a>
+            <a href="#" id="twitter-link" class="hover:text-white transition-colors">
+              <i class="fa-brands fa-x-twitter"></i>
+            </a>
+            <a href="#" id="linkedin-link" class="hover:text-white transition-colors">
+              <i class="fa-brands fa-linkedin"></i>
+            </a>
+          </div>
+        </div>
+    </footer>
+
+    
     <script src="src/script.js"></script>
 </body>
 </html>
