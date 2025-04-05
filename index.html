@@ -1,3 +1,6 @@
+<!--MY GITHUB REPO : https://github.com/navwebg/wheather-Forecast-Application-->
+<!--MY GITHUB REPO : https://github.com/navwebg/wheather-Forecast-Application-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,28 +9,34 @@
     <link rel="stylesheet" href="src/output.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <title>nav</title>
+    <title>Wheater Forcast Application</title>
 </head>
 <body class="bg-gray-900 text-white min-h-screen p-4 flex flex-col items-center">
 
 <!-- Navbar -->
-    <nav class="w-full max-w-6xl bg-gray-800 p-4 rounded-lg shadow-md flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 mb-8">
-      
-        <!-- Search Bar -->
-        <div class="relative w-full md:w-[45%]">
-          <input id="search-input" type="text" placeholder="Search City..." class="bg-gray-700 text-white pl-10 pr-4 py-2 rounded-full w-full outline-none placeholder:text-gray-400"/>
-          <button id="search-btn" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
-        </div>
-      
-        <!-- Location Button -->
-        <button id="location-btn" class="bg-blue-500 px-5 py-2 rounded-full text-white hover:bg-blue-600 transition-all">
-          <i class="fa-solid fa-location-crosshairs mr-2"></i>
-          Use Current Location
-        </button>  
-          
+    <nav class="w-full max-w-6xl bg-gray-800 p-4 rounded-lg shadow-md flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 mb-8 relative">
+          <!-- Search Wrapper with Dropdown -->
+          <div class="relative w-full md:w-[45%]">
+            <input id="search-input" type="text" placeholder="Search City..." 
+              class="bg-gray-700 text-white pl-10 pr-4 py-2 rounded-full w-full outline-none placeholder:text-gray-400"/>
+        
+            <button id="search-btn" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        
+            <!-- Search History Dropdown -->
+            <ul id="search-history-dropdown" class="absolute cursor-pointer z-50 top-full left-0 right-0 bg-gray-800 text-white mt-2 rounded-lg shadow-lg hidden max-h-60 overflow-y-auto">
+            </ul>
+          </div>
+        
+          <!-- Location Button -->
+          <button id="location-btn" class="bg-blue-500 px-5 py-2 rounded-full text-white hover:bg-blue-600 transition-all">
+            <i class="fa-solid fa-location-crosshairs mr-2"></i>
+            Use Current Location
+          </button>  
+    
     </nav>
+
       
 
     <!-- City & Time Block -->
@@ -40,7 +49,7 @@
           </h2>
         </div>
       
-        <!-- Time & Date -->
+        <!--Date -->
         <div>
           <!-- <p id="current-time" class="text-lg text-gray-300">
             <i class="fa-regular fa-clock mr-1 text-yellow-300"></i>
@@ -147,7 +156,7 @@
         <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
           <!-- Left Side -->
           <p id="footer-text" class="text-sm text-center md:text-left">
-            Made with 💻 & way too much coffee by <span class="text-white font-semibold">Navneet</span> — Weather so accurate, idk mann, im also doutfull
+            No cats were harmed in the making of this site. Just mildly annoyed.🐾 — Judged by cats. Approved by none.”
           </p>
        
           <!-- Social Links -->

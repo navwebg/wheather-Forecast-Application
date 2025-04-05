@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const API_KEY = "4246ed328dee48d95a2d818da480219d"; //API key 
+    const API_KEY = "4246ed328dee48d95a2d818da480219d"; //API key ('_') 
     const searchInput = document.getElementById("search-input");
     const searchBtn = document.getElementById("search-btn");
     const locationBtn = document.getElementById("location-btn");
@@ -10,10 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const pressure = document.getElementById("pressure");
     const weeklyForecast = document.getElementById("weekly-forecast");
 
-    // Search history dropdown
+    // Search history dropdown menu----->
     const searchHistoryDropdown = document.createElement("ul");
-    searchHistoryDropdown.className = "absolute bg-gray-800 text-white w-full mt-1 rounded shadow-md hidden";
+    searchHistoryDropdown.className = "absolute bg-gray-800 text-white cursor-pointer w-full mt-1 rounded shadow-md hidden z-50";
     searchInput.parentElement.appendChild(searchHistoryDropdown);
+
 
     let searchHistory = JSON.parse(localStorage.getItem("weatherSearchHistory")) || [];
 
@@ -68,49 +69,77 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Add City to Search History & Update Dropdown Menu
+    // Adding City to Search History & Updating the Dropdown Menu
     function addToSearchHistory(city) {
-        if (!searchHistory.includes(city)) {
-            searchHistory.unshift(city);
-            if (searchHistory.length > 5) searchHistory.pop(); // Keep only last 5 searches
-            localStorage.setItem("weatherSearchHistory", JSON.stringify(searchHistory));
+        const existingIndex = searchHistory.findIndex(c => c.toLowerCase() === city.toLowerCase());
+        if (existingIndex !== -1) {
+            searchHistory.splice(existingIndex, 1); 
         }
+        searchHistory.unshift(city);
+        if (searchHistory.length > 5) searchHistory.pop(); 
+        localStorage.setItem("weatherSearchHistory", JSON.stringify(searchHistory));
         renderSearchHistory();
     }
+    
 
-    // Show Recent Search in Dropdown Menu
+    // Showing Recent Search in Dropdown Menu
     function renderSearchHistory() {
         searchHistoryDropdown.innerHTML = "";
         searchHistoryDropdown.classList.toggle("hidden", searchHistory.length === 0);
-
+    
         searchHistory.forEach(city => {
-            const item = document.createElement("li");
-            item.className = "p-2 cursor-pointer hover:bg-gray-700 flex justify-between";
-            item.innerHTML = `<span>${city}</span> <button class="text-red-400">&times;</button>`;
+            const li = document.createElement("li");
+            li.className = "flex justify-between items-center p-2 hover:bg-gray-700";
+    
+            const citySpan = document.createElement("span");
+            citySpan.textContent = city;
+            citySpan.className = "cursor-pointer flex-1";
+    
+            const deleteBtn = document.createElement("button");
+            deleteBtn.innerHTML = "&times;";
+            deleteBtn.className = `text-red-400 text-xl ml-2 mt-[-2px] hover:text-white hover:bg-red-500 rounded-full w-7 h-7 flex items-center justify-center transition duration-150 hover:scale-110 cursor-pointer`;
 
-            // Fetching weather when clicked
-            item.querySelector("span").addEventListener("click", () => {
+            // When clicking city span it i'll again add it to search
+            citySpan.addEventListener("click", () => {
                 searchInput.value = city;
                 fetchWeather(city);
                 hideSearchHistory();
             });
-
-            // Removeing from history
-            item.querySelector("button").addEventListener("click", (e) => {
+    
+            // When clicking delete button it will remove from history
+            deleteBtn.addEventListener("click", (e) => {
                 e.stopPropagation();
-                searchHistory = searchHistory.filter(c => c !== city);
+                console.log("delete clicked"); // checking on console
+                searchHistory = searchHistory.filter(c => c.toLowerCase() !== city.toLowerCase());
                 localStorage.setItem("weatherSearchHistory", JSON.stringify(searchHistory));
                 renderSearchHistory();
             });
-
-            searchHistoryDropdown.appendChild(item);
+    
+            li.appendChild(citySpan);
+            li.appendChild(deleteBtn);
+            searchHistoryDropdown.appendChild(li);
         });
     }
+    
 
     // Showing search history when clicking search input in dropdown menu
     searchInput.addEventListener("focus", () => {
-        searchHistoryDropdown.classList.remove("hidden");
+        if (searchHistory.length > 0) {
+            searchHistoryDropdown.classList.remove("hidden");
+        }
     });
+
+    
+    // Hide dropdown on blur or mouse leaving the dropdown/input
+    searchInput.addEventListener("blur", () => {
+        setTimeout(hideSearchHistory, 100);
+    });
+    
+    searchHistoryDropdown.addEventListener("mouseleave", () => {
+        hideSearchHistory();
+    });
+    
+
 
     // hiding search history when clicking outside or moving cursor away
     document.addEventListener("click", (event) => {
@@ -119,15 +148,27 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+
     // hiding search history after searching
     function hideSearchHistory() {
         searchHistoryDropdown.classList.add("hidden");
     }
 
-    searchBtn.addEventListener("click", () => fetchWeather(searchInput.value));
+    function handleSearch() {
+        const query = searchInput.value.trim();
+        if (!query) {
+            alert("Please enter a city name.");
+            return;
+        }
+        fetchWeather(query);
+    }
+    
+    searchBtn.addEventListener("click", handleSearch);
     searchInput.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") fetchWeather(searchInput.value);
+        if (e.key === "Enter") handleSearch();
     });
+    
+
 
     locationBtn.addEventListener("click", () => {
         if (navigator.geolocation) {
@@ -141,5 +182,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Initial Load
     renderSearchHistory();
-    fetchWeather("New York"); // Default city
+    fetchWeather("Goa"); // Default city
 });
